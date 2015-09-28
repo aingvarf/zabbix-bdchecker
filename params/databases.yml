@@ -1,0 +1,26 @@
+# List of adapters and there connection options 
+# can be found http://sequel.jeremyevans.net/rdoc/files/doc/opening_databases_rdoc.html
+# nls_lnag is optional and can be used only with oracle
+# all parameters for DSN are used as connection options
+#
+# workers_min - min number of workers, processing requests (min number connections to db)
+# workers_max - max number of workers, processing requests (max number connections to db)
+# if all workers_max workers are busy, request is enqueued
+DSN1:
+  adapter: oracle
+  database: The name of the database to which to connect, for oracle can be TNS
+  user: user_name
+  password: password
+  check_sql: select 1 from dual
+  nls_lnag: RUSSIAN.CL8MSWIN1251
+  workers_max: 5
+  workers_min: 1
+DSN2:
+  adapter: oracle
+  database: The name of the database to which to connect, for oracle can be TNS
+  user: user_name2
+  password: password2
+  check_sql: select 1 from dual
+  nls_lnag: RUSSIAN.CL8MSWIN1251
+  workers_max: 5
+  workers_min: 1  
