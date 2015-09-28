@@ -6,6 +6,9 @@ $PARAMS_PATH = File.join($BASE_PATH,'params').freeze
 # You can change $PARAMS_PATH to be outside service dir - it's more easy to updates only params on remote host
 # $PARAMS_PATH = File.join(File.expand_path('..', $BASE_PATH),'bdchecker_params').freeze
 
+Dir.mkdir(File.join($BASE_PATH, 'logs')) unless Dir.exist?(File.join($BASE_PATH, 'logs'))
+Dir.mkdir(File.join($BASE_PATH, 'tmp'))  unless Dir.exist?(File.join($BASE_PATH, 'tmp'))
+
 require 'rubygems'
 require 'bundler/setup'
 require 'eventmachine'
