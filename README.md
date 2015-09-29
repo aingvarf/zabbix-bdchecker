@@ -83,6 +83,14 @@ change localhost and 10000 to values of $LISTEN_ON_ADRESS, $SERVER_PORT constant
 
 Now you can add "Zabbix agent (active)" item in zabbix. The key will be `bd["DSN1,SQL_NAME,PARAM1,PARAM2"]`.
 
+## Statistical data
+
+The following requests allow to get statistical data about queries for DSN:
+* bd["STAT,DSN1,SQL_TIME"] - average time spent on sql queries
+* bd["STAT,DSN1,REQ_TIME"] - average time spent on requests processing
+
+Parameter stat_len in params/databases.yml file defines for each DSN how many last requests will be used to calculate statistical data. If this parameter is not present - the default value (10) will be used.
+
 ## Known issues
 
 Error "Target thread must not be current thread" is recorded in logs on the first request to database. This error does not affect on the work of this service.
