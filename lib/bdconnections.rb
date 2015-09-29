@@ -101,6 +101,14 @@ class BdConnections
       reqcallback.call("Wrong request string!\n\r")
       return
     end
+    
+    # If this is request for statistical info
+    if dsn=='STAT'
+      stat = ServiceStat.info(sql_name, req_params[:params])
+      reqcallback.call("#{stat}\n\r")
+      return
+    end
+    
     sql = sql(dsn, sql_name)
     if sql.nil?
       reqcallback.call("SQL #{sql_name} not found!\n\r")
@@ -153,11 +161,15 @@ class BdConnections
         rescue => err
           value = err.message
         end
-        sqlend = Time.now
 
         #sleep 10
-        $logger.info "#{worker.dsn_params[:dsn]}:#{sql_name}:#{worker.object_id}:#{bd.object_id}:#{Time.now - worker.start_time}:#{sqlend - sqlbegin}:End processing"
+        sql_time = Time.now - sqlbegin
+        req_time = Time.now - worker.start_time
         reqcallback.call("#{value}\n\r")
+        $logger.info "#{worker.dsn_params[:dsn]}:#{sql_name}:#{worker.object_id}:#{bd.object_id}:#{req_time}:#{sql_time}:End processing"
+
+        # save statistical data for DSN
+        ServiceStat.queue << [worker.dsn_params[:dsn], sql_time, req_time, worker.dsn_params['stat_len']]
       rescue =>err
         $logger.fatal "#{worker.dsn_params[:dsn]}:#{sql_name}:#{worker.object_id}:#{bd.object_id}:#{err.message}"
         reqcallback.call("#{err.message}\n\r")
