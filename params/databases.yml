@@ -6,6 +6,8 @@
 # workers_min - min number of workers, processing requests (min number connections to db)
 # workers_max - max number of workers, processing requests (max number connections to db)
 # if all workers_max workers are busy, request is enqueued
+#
+# stat_len - number of last requests to calculate statistical data
 DSN1:
   adapter: oracle
   database: The name of the database to which to connect, for oracle can be TNS
@@ -15,6 +17,7 @@ DSN1:
   nls_lnag: RUSSIAN.CL8MSWIN1251
   workers_max: 5
   workers_min: 1
+  stat_len: 20
 DSN2:
   adapter: oracle
   database: The name of the database to which to connect, for oracle can be TNS
