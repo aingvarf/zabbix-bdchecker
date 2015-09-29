@@ -16,6 +16,7 @@ require 'logger'
 require 'em-logger'
 require 'process_client_req.rb'
 require 'bdconnections.rb'
+require 'service_stat.rb'
 
 $SERVER_PORT = 10000
 $LISTEN_ON_ADRESS = '0.0.0.0'
